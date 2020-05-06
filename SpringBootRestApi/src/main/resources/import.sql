@@ -1,0 +1,1 @@
+insert into StudentHB(studentId,name,course) values(1,"manzer","java");
