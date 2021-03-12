@@ -18,28 +18,57 @@ import com.example.RecordNotFoundException;
 import com.example.model.Employee;
 import com.example.service.EmployeeService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+
 @RestController
 @RequestMapping("/emp")
+@Api(value = "Swagger Documentation of Employee Controller", description = "REST APIs related to Employee")
 public class EmployeeController {
 
 	@Autowired
 	EmployeeService employeeService;
 	
+	@ApiOperation(value = "Get list of All Employees from the Map", response = Iterable.class, tags = "getAllEmployees")
+	@ApiResponses(value= {
+			@ApiResponse(code = 404, message = "Employee Not Found"),
+			@ApiResponse(code = 200, message = "Employee Found"),
+			@ApiResponse(code = 401, message = "Unauthorized, check credentials"),
+			@ApiResponse(code = 403, message = "Forbidden, check your authorization")
+		})
 	@RequestMapping(value="/employees", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Employee>> getAllEmployees() {
 		List<Employee> list = employeeService.getAllEmployees();
 		return new ResponseEntity<List<Employee>>(list,HttpStatus.OK);
 	}
 
+	@ApiOperation(httpMethod = "GET", value = "d and return employee details")
+	@ApiResponses(value= {
+		@ApiResponse(code = 404, message = "Specific Employee Not Found"),
+		@ApiResponse(code = 200, message = "Employee ID Found"),
+		@ApiResponse(code = 401, message = "Unauthorized, check credentials"),
+		@ApiResponse(code = 403, message = "Forbidden, check your authorization")
+	})
 	@RequestMapping(value="/employee/{id}", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Employee> getEmployee(@PathVariable("id") int id) {
+	public ResponseEntity<Employee> getEmployee(
+			@ApiParam( name =  "id",value = "Employee ID",required = true)
+			@PathVariable("id") int id) 
+	{
 		Employee employee = employeeService.getEmployee(id);
 		if(employee==null)
 			 throw new RecordNotFoundException("Invalid employee id : " + id);
 		return new ResponseEntity<>(employee, HttpStatus.OK);
 	
 	}
-
+	@ApiOperation(produces = "Specific Employee Deatil", consumes = "Employee ID", httpMethod = "GET", value = "takes employee id and return employee details")
+	@ApiResponses(value= {
+		@ApiResponse(code = 201, message = "Employee Not Created"),
+		@ApiResponse(code = 401, message = "Unauthorized, check credentials"),
+		@ApiResponse(code = 403, message = "Forbidden, check your authorization")
+	})
 	@RequestMapping(value="/create",method=RequestMethod.POST)
 	public ResponseEntity<Void> createEmployee(@RequestBody Employee employee, UriComponentsBuilder builder) {
 		boolean result = employeeService.createEmployee(employee);

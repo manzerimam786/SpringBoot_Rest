@@ -3,16 +3,25 @@ package com.example.model;
 import java.io.Serializable;
 import java.util.Date;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+@ApiModel(description = "Employee Model", value = "Employee Details")
 public class Employee implements Serializable{
 
+	@ApiModelProperty(notes = "ID of an Employee", dataType = "Integer", name = "id", value="test id", allowableValues = "Only Digit", required = true)
 	int id;
 	private static final long serialVersionUID = 1000000000L;
+	@ApiModelProperty(notes = "Name of Student", dataType = "String", name = "name", value="test name")
 	String name;
+	@ApiModelProperty(notes = "Name of Student Department",name="deptname", value="test deptname")
 	String deptname;
+	@ApiModelProperty(notes = "Joining Date of Employee", dataType = "String", name = "joiningDate", value="test joining date")
 	String joiningDate;
+	
 	public Employee() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	public Employee(String name, String deptname) {
 		super();
