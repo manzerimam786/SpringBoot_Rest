@@ -11,7 +11,8 @@ Docker Deployment Steps:
 2. execute below command
    docker build -t docker-spring-boot:latest .
    docker pull mysql
-   docker run --name my-first-mysql -e MYSQL_ROOT_PASSOWRD=my-secret-pw -e MYSQL_DATABASE=testdb -e MYSQL_ROOT_USER=root mysql
+   docker run --name my-first-mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw -e MYSQL_DATABASE=testdb -e MYSQL_ROOT_USER=root -d mysql
+   docker run --name my-first-mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mysql
    docker run --name docker-spring-boot-container -p 8089:8089 --link my-first-mysql:mysql -d -e jasypt.encryptor.password=nishi docker-spring-boot
 
 

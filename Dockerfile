@@ -1,5 +1,5 @@
 FROM openjdk:8
-COPY target/SBRA.war SBRA.war
+COPY target/SpringBootRestApi-2.0.war SpringBootRestApi-2.0.war
 EXPOSE 8089:8085
 ENTRYPOINT ["java"]
-CMD ["-jar", "SBRA.war"]
+CMD ["-jar", "SpringBootRestApi-2.0.war"]
