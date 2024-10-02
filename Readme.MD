@@ -1,3 +1,4 @@
-This Application is working on below Spring Boot Version
-<version>1.5.10.RELEASE</version>
-doing change for testing github to jenkins poll configuration and also giving KT to Atish
+Spring Boot + Spring Data JPA + Spring Security + Custom Exception
+
+Basic 
+Actuator + DevTools + Swagger
