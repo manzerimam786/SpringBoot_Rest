@@ -1,39 +1,39 @@
 package com.example.service;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.stereotype.Service;
 
-import com.example.dao.StudentRepository;
-import com.example.model.Student;
+import com.example.respository.StudentRepository;
+import com.example.entity.StudentEntity;
 
 @Service
 public class StudentService {
 
 	@Autowired
-	StudentRepository studentRepository;
-	
-	/*@Bean(name="entityManagerFactory")
-	public LocalSessionFactoryBean sessionFactory() {
-	    LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
+	private StudentRepository studentRepository;
 
-	    return sessionFactory;
-	} */
-	public List<Student> getAllStudents()
-	{
-		List<Student> list = new ArrayList<Student>();
-		Iterable<Student> iterable = studentRepository.findAll();
-		Iterator<Student> itr =  iterable.iterator();
-		while(itr.hasNext())
-		{
-			Student student = (Student)itr.next();
-			list.add(student);
-		}
-		return list;
+	public List<StudentEntity> getAllStudents() {
+		return studentRepository.findAll();
 	}
+
+	public StudentEntity getStudent(int id) {
+		return studentRepository.findById(id).get();
+	}
+
+	public StudentEntity createStudent(StudentEntity student) {
+		return studentRepository.save(student);
+	}
+	public void deleteStudent(int id) {
+		studentRepository.deleteById(id);
+	}
+
+	public StudentEntity findStudentEntityByName(String name) {
+		return studentRepository.findStudentEntityByName(name);
+	}
+
+//	public boolean updateEmployee(int id, Student student) {
+//		return studentRepository.updateStudentBy(id);
+//	}
 }
