@@ -1,18 +1,40 @@
-This Application is working on below Spring Boot Version
-<version>1.5.10.RELEASE</version>
-doing change for testing github to jenkins poll configuration
+#####################  Below feature added #######################
 
-Steps to be followed to proeprly work this project
-1. clone this project
-2. add oracle6-11.2.0.3.jar in local maven repo
+1. Docker image of Spring Boot MYSQL application
+2. Pulled MYSQL docker image with "root" user and root "password" and deploy Spring Boot Docker application in Docker container
+3. Create Docker container and connect mysql container to docker network 
+4. run Spring boot docker image usingg mycsql container and docker network
 
-Docker Deployment Steps:
-1. Add Docker file
-2. execute below command
-   docker build . -t docker-spring-boot:latest
-   docker pull mysql
-   #docker run --name my-first-mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw -e MYSQL_DATABASE=testdb -e MYSQL_ROOT_USER=root -d mysql
-   docker run --name my-first-mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mysql
-   docker run --name docker-spring-boot-container -p 8089:8089 --link my-first-mysql:mysql -d -e jasypt.encryptor.password=nishi docker-spring-boot
+###################### Docker Deployment Steps #####################
+  
+1. mvn clean install
+   It will install jar in local m2 directory
+2. docker build -t springbootrestimage .
+   -t ----> refer tagName
+   .  ----> refer current directory ( this need to be executed inside project directory)
+3. docker pull mysql
+   Note: if you not specify tagName =, it will pull latest, like the baove cmd becomes "docker pull mysql:latest"
+4. docker run -p 3307:3306 --name mysqlcontainer -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=student -d mysql
+   -p ----> refer port
+   -e ----> refer environment variable
+   -d ----> refer detach mode
+   MYSQL_ROOT_PASSWORD, MYSQL_DATABASE ----> pass here while running mysqlcontainer
+   --name----> refer name of container
+5. docker network create networkmysql
+   create ----> create docker network
+6. docker network connect networkmysql mysqlcontainer
+   Note: connect the above created myqlcontainer to  networkmysql
+7. docker run -p 8089:9092 --name springbootrestcontainer --net networkmysql -e MYSQL_USER=root -e MYSQL_ROOT_PASSWORD=root -e MYSQL_HOST=mysqlcontainer -e MYSQL_PORT=3306 -e MYSQL_DB_NAME=student springbootrestimage
+   Note: here "MYSQL_DB_NAME" is different while running for mysql , there we used "MYSQL_DATABASE"
 
 
+
+
+
+
+This branch contains below features
+1. Spring Data JPA(MYSQL Connectivity)
+2. Jasypt Library
+3. Custom Exception
+4. jacoco integration
+5. sonarlint installed

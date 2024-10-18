@@ -1,5 +1,6 @@
 FROM openjdk:8
-COPY target/SpringBootRestApi-2.0.war SpringBootRestApi-2.0.war
-EXPOSE 8089:8089
+COPY target/SpringBootDataJPAExample.jar SpringBootDataJPAExample.jar
+# container port: application port
+EXPOSE 8089:9092
 ENTRYPOINT ["java"]
-CMD ["-jar", "SpringBootRestApi-2.0.war"]
+CMD ["-jar", "SpringBootDataJPAExample.jar"]
