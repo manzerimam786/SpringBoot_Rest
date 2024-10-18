@@ -1,5 +1,12 @@
 #####################  Below feature added #######################
 
+This branch contains below features
+1. Spring Data JPA(MYSQL Connectivity)
+2. Custom Exception
+3. jacoco integration
+
+-------------------------------------------------------------------
+
 1. Docker image of Spring Boot MYSQL application
 2. Pulled MYSQL docker image with "root" user and root "password" and deploy Spring Boot Docker application in Docker container
 3. Create Docker container and connect mysql container to docker network 
@@ -26,15 +33,3 @@
    Note: connect the above created myqlcontainer to  networkmysql
 7. docker run -p 8089:9092 --name springbootrestcontainer --net networkmysql -e MYSQL_USER=root -e MYSQL_ROOT_PASSWORD=root -e MYSQL_HOST=mysqlcontainer -e MYSQL_PORT=3306 -e MYSQL_DB_NAME=student springbootrestimage
    Note: here "MYSQL_DB_NAME" is different while running for mysql , there we used "MYSQL_DATABASE"
-
-
-
-
-
-
-This branch contains below features
-1. Spring Data JPA(MYSQL Connectivity)
-2. Jasypt Library
-3. Custom Exception
-4. jacoco integration
-5. sonarlint installed
