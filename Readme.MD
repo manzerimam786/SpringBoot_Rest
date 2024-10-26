@@ -8,3 +8,4 @@ This branch contains below features
 5. sonarlint installed
 
 testing git reset
+update again README FILE
