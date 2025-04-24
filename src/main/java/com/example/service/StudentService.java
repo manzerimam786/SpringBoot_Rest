@@ -1,39 +1,54 @@
 package com.example.service;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.entity.StudentEntity;
+import com.example.model.StudentDTO;
+import com.example.respository.StudentRepository;
 import org.springframework.stereotype.Service;
 
-import com.example.respository.StudentRepository;
-import com.example.entity.StudentEntity;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class StudentService {
 
-	@Autowired
-	private StudentRepository studentRepository;
+	private final StudentRepository studentRepository;
+
+	public StudentService(StudentRepository studentRepository){
+        this.studentRepository = studentRepository;
+    }
 
 	public List<StudentEntity> getAllStudents() {
 		return studentRepository.findAll();
 	}
 
-	public StudentEntity getStudent(int id) {
-		return studentRepository.findById(id).get();
+	public Optional<StudentEntity> getStudent(int id) {
+		return Optional.of(studentRepository.findById(id).get());
 	}
 
-	public StudentEntity createStudent(StudentEntity student) {
-		return studentRepository.save(student);
+	public StudentEntity createStudent(StudentDTO student) {
+		StudentEntity studentEntity = mapStudentDTOToStduentEntity(student);
+		return studentRepository.save(studentEntity);
 	}
+
+	private static StudentEntity mapStudentDTOToStduentEntity(StudentDTO student) {
+		StudentEntity studentEntity = new StudentEntity();
+		studentEntity.setStudentId(student.getStudentId());
+		studentEntity.setFirstName(student.getFirstName());
+		studentEntity.setLastName(student.getLastName());
+		studentEntity.setCity(student.getCity());
+		studentEntity.setCourse(student.getCourse());
+		return studentEntity;
+	}
+
 	public void deleteStudent(int id) {
 		studentRepository.deleteById(id);
 	}
 
-	public StudentEntity findStudentEntityByName(String name) {
-		return studentRepository.findStudentEntityByName(name);
+	public List<StudentEntity> findStudentByName(String name) {
+		return studentRepository.getLastName(name);
 	}
 
-//	public boolean updateEmployee(int id, Student student) {
-//		return studentRepository.updateStudentBy(id);
-//	}
+	public StudentEntity findStudentByFirstAndLastName(String firstName, String lastName) {
+		return studentRepository.findByFirstNameAndLastName(firstName, lastName);
+	}
 }
