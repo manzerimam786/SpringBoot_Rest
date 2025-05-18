@@ -13,7 +13,7 @@ public class JasyptConfig {
     public StringEncryptor stringEncryptor() {
         PooledPBEStringEncryptor encryptor = new PooledPBEStringEncryptor();
         SimpleStringPBEConfig config = new SimpleStringPBEConfig();
-        config.setPassword("myencryptionkey"); // Replace with your secret key
+        config.setPassword("wifehomename"); // Replace with your secret key
         config.setAlgorithm("PBEWITHHMACSHA512ANDAES_256");
         config.setKeyObtentionIterations("1000");
         config.setPoolSize("1");

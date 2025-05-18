@@ -1,4 +1,4 @@
-mvn jasypt:encrypt-value -Djasypt.encryptor.password=<yourencryptionkey> -Djasypt.plugin.value=<password>
+mvn jasypt:encrypt-value -Djasypt.encryptor.password=<secret-name> -Djasypt.plugin.value=<actual db password>
 
 This branch contains below features
 1. Spring Data JPA(MYSQL Connectivity)

@@ -4,6 +4,7 @@ import com.example.exception.ErrorResponse;
 import com.example.exception.RecordNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -33,10 +34,10 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(RecordNotFoundException.class)
-    public final ResponseEntity<Object> handleUserNotFoundException(RecordNotFoundException ex, WebRequest request) {
+    public final ResponseEntity<Object> handleUserNotFoundException(RecordNotFoundException ex, WebRequest request, BindingResult bindingResult) {
         List<String> details = new ArrayList<>();
-        details.add(ex.getLocalizedMessage());
-        ErrorResponse error = new ErrorResponse("Record Not Found", details);
+        details.add(bindingResult.getFieldError().getDefaultMessage());
+        ErrorResponse error = new ErrorResponse(bindingResult.getFieldError().getField(), details);
         return new ResponseEntity(error, HttpStatus.NOT_FOUND);
     }
 

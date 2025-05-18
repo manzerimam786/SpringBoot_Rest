@@ -14,4 +14,5 @@ public interface StudentRepository extends JpaRepository<StudentEntity, Integer>
     @Query(value = "select * from Student e where e.first_name =:name" , nativeQuery = true) // SQL Query
     List<StudentEntity> getLastName(@Param("name") String name); // if you won't use findBy...() or getBy...() then need to add @Query
     StudentEntity findByFirstNameAndLastName(String firstName, String lastName);
+
 }
