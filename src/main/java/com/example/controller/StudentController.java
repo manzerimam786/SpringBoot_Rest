@@ -34,9 +34,9 @@ public class StudentController {
 
     // Added pagination page =0 size 2, and sortBy firstName and sortDir = ascending
     @GetMapping(value = "/getAllStudents", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Page<StudentEntity>> getAllStudents(@RequestParam(required=false, defaultValue = "0") int page,@RequestParam(required = false, defaultValue = "2") int size,@RequestParam(required = false, defaultValue = "firstName") String sortBy,@RequestParam(required = false, defaultValue = "ascending") String sortDir) {
+    public ResponseEntity<List<StudentEntity>> getAllStudents(@RequestParam(required=false, defaultValue = "0") int page,@RequestParam(required = false, defaultValue = "2") int size,@RequestParam(required = false, defaultValue = "firstName") String sortBy,@RequestParam(required = false, defaultValue = "ascending") String sortDir) {
         log.debug("inside getAllStudents");
-        Page<StudentEntity> list = studentService.getAllStudents(page,size,sortBy,sortDir);
+        List<StudentEntity> list = studentService.getAllStudents(page,size,sortBy,sortDir);
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
