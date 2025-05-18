@@ -24,7 +24,8 @@ public class StudentDTO {
     @NotEmpty
     private String lastName;
     private String phone;
-    @Pattern(regexp = "^[A-Za-z0-9+-_.%]+\\@[a-zA-Z+-.]+\\.[a-zA-Z]{2,}$")
+    //@Pattern(regexp = "^[A-Za-z0-9+-_.%]+\\@[a-zA-Z+-.]+\\.[a-zA-Z]{2,}$")
+    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=!]).{8,}$")
     private String email;
     @NotNull
     @NotEmpty
