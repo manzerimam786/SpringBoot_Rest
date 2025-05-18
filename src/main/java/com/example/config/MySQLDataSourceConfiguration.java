@@ -2,12 +2,14 @@ package com.example.config;
 
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 @Configuration
-public class DataSourceConfig {
+@ConditionalOnProperty(name = "mysql.db.enabled", havingValue = "true")
+public class MySQLDataSourceConfiguration {
 
     @Value("${spring.datasource.url}")
     private String dataSourceUrl;

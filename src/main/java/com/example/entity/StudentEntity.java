@@ -15,7 +15,15 @@ public class StudentEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     int studentId;
     @Column
-    String name;
+    String firstName;
+    @Column
+    String lastName;
+    @Column
+    String city;
+    @Column
+    String phone;
+    @Column
+    String email;
     @Column
     String course;
 }
