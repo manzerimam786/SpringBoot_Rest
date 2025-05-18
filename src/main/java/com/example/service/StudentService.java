@@ -28,10 +28,10 @@ public class StudentService {
 		this.procedureRepository= procedureRepository;
     }
 
-	public Page<StudentEntity> getAllStudents(int page, int size, String sortBy, String sortDir) {
+	public List<StudentEntity> getAllStudents(int page, int size, String sortBy, String sortDir) {
 		Sort sort = sortDir.equals("ascending") ?  Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
 		Pageable pageable = PageRequest.of(page,size,sort);
-		return studentRepository.findAll(pageable);
+		return studentRepository.findAll(pageable).getContent();
 	}
 
 	public Optional<StudentEntity> getStudent(int id) {
