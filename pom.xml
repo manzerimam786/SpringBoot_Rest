@@ -78,22 +78,22 @@
         <!-- dependencies for Ehcache -->
         <!-- Spring Boot Starter Cache -->
         <!-- Spring Cache support -->
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.boot</groupId>-->
-<!--            <artifactId>spring-boot-starter-cache</artifactId>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-cache</artifactId>
+        </dependency>
 
-<!--        &lt;!&ndash; Ehcache 3 (JSR-107 compatible) &ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>org.ehcache</groupId>-->
-<!--            <artifactId>ehcache</artifactId>-->
-<!--        </dependency>-->
+        <!-- Ehcache 3 (JSR-107 compatible) -->
+        <dependency>
+            <groupId>org.ehcache</groupId>
+            <artifactId>ehcache</artifactId>
+        </dependency>
 
-<!--        &lt;!&ndash; JCache API (JSR-107) - required by Ehcache &ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>javax.cache</groupId>-->
-<!--            <artifactId>cache-api</artifactId>-->
-<!--        </dependency>-->
+        <!-- JCache API (JSR-107) - required by Ehcache -->
+        <dependency>
+            <groupId>javax.cache</groupId>
+            <artifactId>cache-api</artifactId>
+        </dependency>
         <!-- libraray Management library -->
         <dependency>
             <groupId>com.atish</groupId>

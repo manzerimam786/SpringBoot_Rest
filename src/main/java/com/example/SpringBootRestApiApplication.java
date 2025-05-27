@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 //import org.springframework.cache.annotation.EnableCaching;
 
-@SpringBootApplication(scanBasePackages = "com.atish")
+@SpringBootApplication(scanBasePackages = {"com.atish", "com.example"})
 //@EnableCaching
 @OpenAPIDefinition(info = @Info(title = "My API", version = "v1"))
 public class SpringBootRestApiApplication {

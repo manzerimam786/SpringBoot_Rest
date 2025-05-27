@@ -7,9 +7,9 @@ import com.example.model.StudentDTO;
 import com.example.respository.ProcedureRepository;
 import com.example.respository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.cache.annotation.CacheEvict;
-//import org.springframework.cache.annotation.CachePut;
-//import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -36,7 +36,7 @@ public class StudentService {
         this.restTemplate = new RestTemplate();
     }
 
-    //@Cacheable(value = "students", key = "#id")
+    @Cacheable(value = "students", key = "#id")
     public List<StudentEntity> getAllStudents(int page, int size, String sortBy, String sortDir) {
         String url = "http://localhost:8082/books/getAllBooks";
         // we have restriction to call List<Book>.class while using getForEntity, so we need to use exchange here
@@ -54,7 +54,7 @@ public class StudentService {
         return studentRepository.findAll(pageable).getContent();
     }
 
-    //@Cacheable(key = "#studentId", value = "students")
+    @Cacheable(key = "#studentId", value = "students")
     public Optional<StudentEntity> getStudent(int id) {
 		return Optional.of(studentRepository.findById(id).get());
     }
@@ -64,7 +64,7 @@ public class StudentService {
         return studentRepository.save(studentEntity);
     }
 
-    //@CachePut(key = "students", value = "#id")
+    @CachePut(key = "students", value = "#id")
     public StudentEntity updateStudent(int id, String updateFirstName) {
         Optional<StudentEntity> studentEntity = studentRepository.findById(id);
         StudentEntity updatedStudent = null;
@@ -75,7 +75,7 @@ public class StudentService {
         return updatedStudent;
     }
 
-    //@CacheEvict(value = "students", key = "#studentId")
+    @CacheEvict(value = "students", key = "#studentId")
     public void deleteStudent(int id) {
         studentRepository.deleteById(id);
     }
