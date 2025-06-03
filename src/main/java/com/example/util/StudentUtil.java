@@ -1,4 +1,4 @@
-package com.example;
+package com.example.util;
 
 import com.example.entity.StudentEntity;
 import com.example.model.StudentDTO;

@@ -6,7 +6,7 @@
         <key-type>java.lang.Integer</key-type>
         <value-type>com.example.entity.StudentEntity</value-type>
         <expiry>
-            <ttl unit="minutes">5</ttl>
+            <ttl unit="minutes">1</ttl>
         </expiry>
         <resources>
             <heap unit="entries">100</heap>

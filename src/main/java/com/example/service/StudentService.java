@@ -1,7 +1,6 @@
 package com.example.service;
 
-import com.atish.model.Book;
-import com.example.StudentUtil;
+import com.example.util.StudentUtil;
 import com.example.entity.StudentEntity;
 import com.example.model.StudentDTO;
 import com.example.respository.ProcedureRepository;
@@ -10,12 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -38,16 +34,16 @@ public class StudentService {
 
     @Cacheable(value = "students", key = "#id")
     public List<StudentEntity> getAllStudents(int page, int size, String sortBy, String sortDir) {
-        String url = "http://localhost:8082/books/getAllBooks";
-        // we have restriction to call List<Book>.class while using getForEntity, so we need to use exchange here
-        ResponseEntity<List> listOfBook = restTemplate.getForEntity(url, List.class);
-        List<Book> listOfBooks = (List<Book>)listOfBook.getBody();
-        System.out.println("listOfBook1="+listOfBook.getBody());
-        
-        // by using exchange
-        ResponseEntity<List<Book>> lisofBooks = restTemplate.exchange(url, HttpMethod.GET, null, new ParameterizedTypeReference<List<Book>>() {
-        });
-        System.out.println("listOfBook="+lisofBooks.getBody().get(1));
+//        String url = "http://localhost:8082/books/getAllBooks";
+//        // we have restriction to call List<Book>.class while using getForEntity, so we need to use exchange here
+//        ResponseEntity<List> listOfBook = restTemplate.getForEntity(url, List.class);
+//        List<Book> listOfBooks = (List<Book>)listOfBook.getBody();
+//        System.out.println("listOfBook1="+listOfBook.getBody());
+//
+//        // by using exchange
+//        ResponseEntity<List<Book>> lisofBooks = restTemplate.exchange(url, HttpMethod.GET, null, new ParameterizedTypeReference<List<Book>>() {
+//        });
+//        System.out.println("listOfBook="+lisofBooks.getBody().get(1));
 
         Sort sort = sortDir.equals("ascending") ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
         Pageable pageable = PageRequest.of(page, size, sort);

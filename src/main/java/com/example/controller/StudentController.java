@@ -85,9 +85,9 @@ public class StudentController {
     // calling procedure which is in MySQL database
     @GetMapping(value = "/testProcedure/{a}/{b}")
     public ResponseEntity<Integer> testProcedure(@PathVariable("a") int a, @PathVariable("b") int b) {
-        System.out.println("here started");
+        System.out.println("Here started");
         int result = studentService.callProcedure(a, b);
-        System.out.println("result =" + result);
+        System.out.println("Result =" + result);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 }

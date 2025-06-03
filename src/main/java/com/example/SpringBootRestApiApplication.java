@@ -4,11 +4,11 @@ import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.info.Info;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.cache.annotation.EnableCaching;
 //import org.springframework.cache.annotation.EnableCaching;
 
 @SpringBootApplication(scanBasePackages = {"com.atish", "com.example"})
-//@EnableCaching
+@EnableCaching
 @OpenAPIDefinition(info = @Info(title = "My API", version = "v1"))
 public class SpringBootRestApiApplication {
     public static void main(String[] args) {
