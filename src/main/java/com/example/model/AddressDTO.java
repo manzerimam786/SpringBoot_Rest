@@ -11,8 +11,7 @@ import javax.validation.constraints.Size;
 @Data
 @Builder
 public class AddressDTO {
-    @NotBlank
-    private Integer addressId;
+    private Long addressId;
     private String city;
     @Size(min = 10, max = 30)
     private String streetName;

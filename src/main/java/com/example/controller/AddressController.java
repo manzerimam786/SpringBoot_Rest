@@ -23,7 +23,7 @@ public class AddressController {
     }
 
     @GetMapping("/adddressId")
-    public ResponseEntity<Address> getAddress(@PathVariable("addressId")Integer addressId){
+    public ResponseEntity<Address> getAddress(@PathVariable("addressId")Long addressId){
         Address address = addressService.getAddress(addressId);
         return new ResponseEntity<>(address, HttpStatus.OK);
     }

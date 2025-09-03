@@ -18,7 +18,7 @@ public class AddressService {
         return addressRepository.save(address);
     }
 
-    public Address getAddress(Integer addressId) {
+    public Address getAddress(Long addressId) {
         return addressRepository.findByAddressId(addressId);
     }
 }

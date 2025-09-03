@@ -10,12 +10,10 @@ import javax.validation.constraints.Size;
 @Data
 @Builder
 public class TeacherDTO {
-    @NotBlank
-    private Integer teacherId;
+    private Long teacherId;
     private String firstName;
     private String lastName;
     @Size(min = 6)
     private String mobile;
-    @NotBlank
     private Address address;
 }
