@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 
+import javax.validation.ConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,12 +41,19 @@ public class GlobalExceptionHandler {
         return new ResponseEntity(error, HttpStatus.NOT_FOUND);
     }
 
-
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public final ResponseEntity<Object> handleValidationException(MethodArgumentNotValidException ex, WebRequest request) {
+    public final ResponseEntity<ErrorResponse> handleValidationException(MethodArgumentNotValidException ex, WebRequest request) {
+        List<String> details = new ArrayList<>();
+        details.add(ex.getBindingResult().getFieldError().getDefaultMessage());
+        ErrorResponse error = new ErrorResponse(ex.getBindingResult().getFieldError().getField(), details);
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    public final ResponseEntity<ErrorResponse> handleConstraintVoilation(ConstraintViolationException ex, WebRequest request){
         List<String> details = new ArrayList<>();
         details.add(ex.getLocalizedMessage());
-        ErrorResponse error = new ErrorResponse("Argument is not valid", details);
-        return new ResponseEntity(error, HttpStatus.NOT_FOUND);
+        ErrorResponse error = new ErrorResponse("Constraint Voilation", details);
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
 }

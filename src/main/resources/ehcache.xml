@@ -3,7 +3,7 @@
         xsi:schemaLocation="http://www.ehcache.org/v3 http://www.ehcache.org/schema/ehcache-core.xsd'">
 
     <cache alias="students">
-        <key-type>java.lang.Integer</key-type>
+        <key-type>java.lang.Long</key-type>
         <value-type>com.example.entity.StudentEntity</value-type>
         <expiry>
             <ttl unit="minutes">1</ttl>

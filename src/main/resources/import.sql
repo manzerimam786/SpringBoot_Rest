@@ -1,0 +1,2 @@
+--INSERT INTO `practise`.`student` (`student_id`, `city`, `course`, `email`, `first_name`, `last_name`, `phone`) VALUES ('1', 'Jehanbad', 'java', 'manzer@gmail.com', 'manzer', 'Imam', '9876543210');
+--INSERT INTO `practise`.`student` (`student_id`, `city`, `course`, `email`, `first_name`, `last_name`, `phone`) VALUES ('2', 'Kokkata', 'dotnet', 'tipu@gmail.com', 'tipu', 'alam', '8765904321');

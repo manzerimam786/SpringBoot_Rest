@@ -11,10 +11,12 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,7 +40,7 @@ public class StudentController {
     }
 
     @GetMapping(value = "/studentById/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Optional<StudentEntity>> getEmployee(@PathVariable("id") int id) {
+    public ResponseEntity<Optional<StudentEntity>> getEmployee(@PathVariable("id") Long id) {
         Optional<StudentEntity> employee = studentService.getStudent(id);
         return new ResponseEntity<>(employee, HttpStatus.OK);
     }
@@ -57,15 +59,16 @@ public class StudentController {
 
     @PostMapping(value = "/createStudent")
     public ResponseEntity<ErrorResponse> createEmployee(@Valid @RequestBody StudentDTO student,
-                                                        //BindingResult bindingResult, required when do programmatic validation
+                                                        //BindingResult bindingResult, //required when do programmatic validation
                                                         UriComponentsBuilder builder) {
         // when we want to handle validation then need to enable below code
-        /*if (bindingResult.hasErrors()) {
+       /*if (bindingResult.hasErrors()) {
             List<String> details = new ArrayList<>();
             details.add(bindingResult.getFieldError().getDefaultMessage());
             ErrorResponse error = new ErrorResponse(bindingResult.getFieldError().getField(), details);
             return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
         }*/
+       //
         StudentEntity result = studentService.createStudent(student);
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(builder.path("/create/{id}").buildAndExpand(result.getStudentId()).toUri());
@@ -73,12 +76,12 @@ public class StudentController {
     }
 
     @PutMapping("/student/{id}/{firstName}")
-    public StudentEntity updateStudent(int id, String updateFirstName){
+    public StudentEntity updateStudent(Long id, String updateFirstName){
         return studentService.updateStudent(id, updateFirstName);
     }
 
     @DeleteMapping(value = "/delete/{id}")
-    public void deleteEmployee(@PathVariable("id") int id) {
+    public void deleteEmployee(@PathVariable("id") Long id) {
         studentService.deleteStudent(id);
     }
 

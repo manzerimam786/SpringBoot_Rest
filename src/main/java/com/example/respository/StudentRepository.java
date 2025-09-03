@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface StudentRepository extends JpaRepository<StudentEntity, Integer> {
+public interface StudentRepository extends JpaRepository<StudentEntity, Long> {
     //@Query(value = "select e from StudentEntity e where e.firstName =:name")   //  JPQL Query
     @Query(value = "select * from Student e where e.first_name =:name" , nativeQuery = true) // SQL Query
     List<StudentEntity> getLastName(@Param("name") String name); // if you won't use findBy...() or getBy...() then need to add @Query

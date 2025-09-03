@@ -5,6 +5,8 @@ import com.example.entity.StudentEntity;
 import com.example.model.StudentDTO;
 import com.example.respository.ProcedureRepository;
 import com.example.respository.StudentRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
@@ -21,6 +23,7 @@ import java.util.Optional;
 @Service
 public class StudentService {
 
+    private static final Logger log = LoggerFactory.getLogger(StudentService.class);
     private final ProcedureRepository procedureRepository;
     private final StudentRepository studentRepository;
     private final RestTemplate restTemplate;
@@ -32,8 +35,8 @@ public class StudentService {
         this.restTemplate = new RestTemplate();
     }
 
-    @Cacheable(value = "students", key = "#id")
-    public List<StudentEntity> getAllStudents(int page, int size, String sortBy, String sortDir) {
+        @Cacheable(value = "students", key = "{#page, #size}")
+        public List<StudentEntity> getAllStudents(int page, int size, String sortBy, String sortDir) {
 //        String url = "http://localhost:8082/books/getAllBooks";
 //        // we have restriction to call List<Book>.class while using getForEntity, so we need to use exchange here
 //        ResponseEntity<List> listOfBook = restTemplate.getForEntity(url, List.class);
@@ -47,11 +50,12 @@ public class StudentService {
 
         Sort sort = sortDir.equals("ascending") ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
         Pageable pageable = PageRequest.of(page, size, sort);
+        log.debug("calling findAll");
         return studentRepository.findAll(pageable).getContent();
     }
 
-    @Cacheable(key = "#studentId", value = "students")
-    public Optional<StudentEntity> getStudent(int id) {
+    @Cacheable(key = "#id", value = "students")
+    public Optional<StudentEntity> getStudent(Long id) {
 		return Optional.of(studentRepository.findById(id).get());
     }
 
@@ -61,7 +65,7 @@ public class StudentService {
     }
 
     @CachePut(key = "students", value = "#id")
-    public StudentEntity updateStudent(int id, String updateFirstName) {
+    public StudentEntity updateStudent(Long id, String updateFirstName) {
         Optional<StudentEntity> studentEntity = studentRepository.findById(id);
         StudentEntity updatedStudent = null;
         if(studentEntity.isPresent()){
@@ -72,7 +76,7 @@ public class StudentService {
     }
 
     @CacheEvict(value = "students", key = "#studentId")
-    public void deleteStudent(int id) {
+    public void deleteStudent(Long id) {
         studentRepository.deleteById(id);
     }
 

@@ -13,7 +13,7 @@ import javax.persistence.*;
 public class StudentEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    Integer studentId;
+    Long studentId;
     @Column
     String firstName;
     @Column
